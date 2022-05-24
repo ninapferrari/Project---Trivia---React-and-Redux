@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getTokenThunk } from '../redux/actions/index';
 import logo from '../trivia.png';
 
 class Login extends Component {
@@ -34,7 +36,11 @@ class Login extends Component {
   };
 
   onclick = (event) => {
+    const { dispatch, history, token } = this.props;
     event.preventDefault();
+    console.log(this.props);
+    dispatch(getTokenThunk());
+    history.push('/game');
   }
 
   render() {
@@ -81,4 +87,8 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = (state) => ({
+  token: state.token,
+});
+
+export default connect(mapStateToProps)(Login);
