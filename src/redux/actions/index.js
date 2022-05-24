@@ -11,8 +11,6 @@ export const addPlayerAction = (state) => ({
   },
 });
 
-export const playerAction = (state) => ({ type: PLAYER_INFO, state });
-
 export const getToken = (token) => ({
   type: GET_TOKEN,
   token,
