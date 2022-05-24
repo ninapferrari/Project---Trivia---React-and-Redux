@@ -4,7 +4,9 @@ import Header from '../components/Header';
 class Game extends Component {
   render() {
     return (
-      <Header />
+      <div>
+        <Header />
+      </div>
     );
   }
 }
