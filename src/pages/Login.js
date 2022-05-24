@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { addPlayerAction } from '../redux/actions';
 import logo from '../trivia.png';
 
 class Login extends Component {
@@ -34,7 +37,10 @@ class Login extends Component {
   };
 
   onclick = (event) => {
+    const { addPlayer } = this.props;
+    const { name, email } = this.state;
     event.preventDefault();
+    addPlayer({ name, email });
   }
 
   render() {
@@ -81,4 +87,12 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  addPlayer: (value) => dispatch(addPlayerAction(value)),
+});
+
+Login.propTypes = {
+  addPlayer: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
