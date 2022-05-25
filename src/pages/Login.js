@@ -36,12 +36,12 @@ class Login extends Component {
     }
   };
 
-  onclick = (event) => {
+  onclick = async (event) => {
     const { addPlayer, getToken, history } = this.props;
     const { name, email } = this.state;
     event.preventDefault();
     addPlayer({ name, email });
-    getToken();
+    await getToken();
     history.push('/game');
   }
 
