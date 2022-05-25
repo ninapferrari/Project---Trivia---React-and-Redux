@@ -37,11 +37,11 @@ class Login extends Component {
   };
 
   onclick = (event) => {
-    const { addPlayer, dispatch, history } = this.props;
+    const { addPlayer, getToken, history } = this.props;
     const { name, email } = this.state;
     event.preventDefault();
     addPlayer({ name, email });
-    dispatch(getTokenThunk());
+    getToken();
     history.push('/game');
   }
 
@@ -108,14 +108,15 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addPlayer: (value) => dispatch(addPlayerAction(value)),
+  getToken: () => dispatch(getTokenThunk()),
 });
 
 Login.propTypes = {
   addPlayer: PropTypes.func.isRequired,
+  getToken: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
-  // dispatch: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
