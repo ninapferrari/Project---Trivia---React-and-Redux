@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getTokenThunk } from '../redux/actions/index';
+import { addPlayerAction, getTokenThunk } from '../redux/actions';
 import logo from '../trivia.png';
 
 class Login extends Component {
@@ -37,10 +37,11 @@ class Login extends Component {
   };
 
   onclick = (event) => {
-    const { dispatch, history } = this.props;
+    const { addPlayer, getToken, history } = this.props;
+    const { name, email } = this.state;
     event.preventDefault();
-    console.log(this.props);
-    dispatch(getTokenThunk());
+    addPlayer({ name, email });
+    getToken();
     history.push('/game');
   }
 
@@ -105,10 +106,17 @@ const mapStateToProps = (state) => ({
   token: state.token,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  addPlayer: (value) => dispatch(addPlayerAction(value)),
+  getToken: () => dispatch(getTokenThunk()),
+});
+
 Login.propTypes = {
+  addPlayer: PropTypes.func.isRequired,
+  getToken: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
-  }),
-}.isRequired;
+  }).isRequired,
+};
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
