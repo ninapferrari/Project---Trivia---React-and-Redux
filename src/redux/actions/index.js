@@ -30,6 +30,7 @@ export const getTokenThunk = () => async (dispatch) => {
     const response = await request.json();
     const token = await response.token;
     dispatch(getToken(token));
+    localStorage.setItem('token', token);
     const data = JSON.stringify({ ranking: [], token } || {});
     localStorage.setItem('data', data);
   } catch (error) {
