@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import '../style/Game.css';
 
 class CardQuestion extends Component {
   constructor() {
@@ -7,6 +8,7 @@ class CardQuestion extends Component {
 
     this.state = {
       answers: [],
+      isClicked: false,
     };
   }
 
@@ -25,12 +27,18 @@ class CardQuestion extends Component {
     const numRandom = 0.5;
     const shuffledAnswers = answers.sort(() => Math.random() - numRandom);
 
-    this.setState({ answers: shuffledAnswers });
+    this.setState({ answers: shuffledAnswers, isClicked: false });
+  }
+
+  clickedButton = () => {
+    this.setState({
+      isClicked: true,
+    });
   }
 
   render() {
     const { question, changeQuestion } = this.props;
-    const { answers } = this.state;
+    const { answers, isClicked } = this.state;
 
     return (
       <div>
@@ -40,8 +48,10 @@ class CardQuestion extends Component {
           { answers.map((elem) => (
             <button
               key={ elem.index }
+              className={ isClicked ? elem.test : '' }
               type="button"
               data-testid={ elem.test }
+              onClick={ this.clickedButton }
             >
               { elem.answer }
             </button>
