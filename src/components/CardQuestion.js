@@ -10,6 +10,7 @@ class CardQuestion extends Component {
     this.state = {
       answers: [],
       isClicked: false,
+      next: false,
     };
   }
 
@@ -28,18 +29,19 @@ class CardQuestion extends Component {
     const numRandom = 0.5;
     const shuffledAnswers = answers.sort(() => Math.random() - numRandom);
 
-    this.setState({ answers: shuffledAnswers, isClicked: false });
+    this.setState({ answers: shuffledAnswers, isClicked: false, next: false });
   }
 
   clickedButton = () => {
     this.setState({
       isClicked: true,
+      next: true,
     });
   }
 
   render() {
     const { question, changeQuestion } = this.props;
-    const { answers, isClicked } = this.state;
+    const { answers, isClicked, next } = this.state;
 
     return (
       <div>
@@ -59,15 +61,20 @@ class CardQuestion extends Component {
             </button>
           )) }
         </div>
-        <button
-          type="button"
-          onClick={ () => {
-            changeQuestion();
-            this.updateAnswer();
-          } }
-        >
-          Next Question
-        </button>
+        {
+          next && (
+            <button
+              type="button"
+              data-testid="btn-next"
+              onClick={ () => {
+                changeQuestion();
+                this.updateAnswer();
+              } }
+            >
+              Next Question
+            </button>
+          )
+        }
         <div>
           {
             !isClicked && <Timer clicked={ this.clickedButton } />

@@ -27,8 +27,7 @@ class Timer extends Component {
   }
 
   stopTimer = () => {
-    const { maxTime } = this.state;
-    const { clicked } = this.props;
+    const { state: { maxTime }, props: { clicked } } = this;
     if (maxTime === 0) clicked();
   }
 
