@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import '../style/Game.css';
+import Timer from './Timer';
 
 class CardQuestion extends Component {
   constructor() {
@@ -52,6 +53,7 @@ class CardQuestion extends Component {
               type="button"
               data-testid={ elem.test }
               onClick={ this.clickedButton }
+              disabled={ isClicked }
             >
               { elem.answer }
             </button>
@@ -66,6 +68,11 @@ class CardQuestion extends Component {
         >
           Next Question
         </button>
+        <div>
+          {
+            !isClicked && <Timer clicked={ this.clickedButton } />
+          }
+        </div>
       </div>
     );
   }
